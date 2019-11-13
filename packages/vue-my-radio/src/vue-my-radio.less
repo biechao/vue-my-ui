@@ -1,0 +1,73 @@
+.vue-my-radio-group.disabled{
+  .vue-my-radio * {
+    cursor: not-allowed !important;
+    opacity: .5;
+  }
+}
+.inline > .vue-my-radio{
+    display: inline-block;
+    + div.vue-my-radio{
+      margin-left: 12px;
+    }  
+}
+.vue-my-radio {
+  *{
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+  &.inline{
+    display: inline-block;
+    + div.vue-my-radio{
+      margin-left: 12px;
+    }
+  }
+  &.disabled *{
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  margin-top: 4px;
+  margin-bottom: 4px;
+  input[type="radio"]{
+    position: absolute;
+    margin-left: -20px;
+    margin: 4px 0 0;
+    line-height: normal;
+    padding:0;
+    border-radius: 50%;
+    display: none;   
+  }
+  label{
+    min-height: 20px;
+    padding: 0;
+    margin-bottom: 0;
+    line-height: 20px;
+    color: #000;
+    cursor: pointer;
+    display: inline-block;
+    max-width: 100%;        
+  }
+  .input-radio:checked + label:before{
+    content: "" !important;
+    background-color: #FFF !important;
+    border: 4px solid #0096cc !important;
+    font-size: 16px;
+    line-height: 14px;
+    color: #fff;
+    text-align: center;    
+    transition: background-color .2s;
+    border-radius: 50%;
+    box-sizing: border-box;   
+  }
+  .input-radio + label:before {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-top: 3px;
+    margin-right: 8px;
+    vertical-align: top;
+    content: "";
+    border: 1px solid #ccc; 
+    border-radius: 50%;
+    box-sizing: border-box;       
+  }
+ }
