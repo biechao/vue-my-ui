@@ -2,7 +2,7 @@
 import { storiesOf } from '@storybook/vue'
 import { withInfo } from 'storybook-addon-vue-info'
 
-import {vueMyRadio,vueMyRadioGroup,vueMyCheckbox,vueMyCheckboxGroup,vueMyTransfer} from './../../packages/index'
+import {vueMyRadio,vueMyRadioGroup,vueMyCheckbox,vueMyCheckboxGroup,vueMyTransfer,vueMySwitch,vueMyDropdown} from './../../packages/index'
 
 storiesOf('Radio', module)
   .addDecorator(withInfo)
@@ -150,6 +150,8 @@ storiesOf('Checkbox', module)
       }
     }
   }),{info:true})
+
+
   storiesOf('Transfer', module)
   .addDecorator(withInfo)
   .add('Default transfer', () => ({
@@ -214,5 +216,93 @@ storiesOf('Checkbox', module)
         });
         return tmp.join(", ");
       }
+    }
+  }),{info:true}) 
+
+  storiesOf('Switch', module)
+  .addDecorator(withInfo)
+  .add('Default switch', () => ({
+    components: { vueMySwitch },
+    template: `<div>
+                  Checked status is: {{checked_large}}, {{checked_medium}}, {{checked_small}} <br/>
+                  <vueMySwitch style="display:inline-block;margin:5px 0" v-model="checked_large" size="large">Large: </vueMySwitch><br/>
+                  <vueMySwitch style="display:inline-block;margin:5px 0" v-model="checked_medium">Medium: </vueMySwitch><br/>
+                  <vueMySwitch style="display:inline-block;margin:5px 0" v-model="checked_small" size="small">Small: </vueMySwitch>
+                </div>`,
+    data(){return {checked_large:false,checked_medium:true,checked_small:false}},
+    methods: { 
+      change(){console.log(this.checked)},
+    }
+  }),{info:true})
+  .add('Disabled switch', () => ({
+    components: { vueMySwitch },
+    template: `<div>
+                  Checked status is: {{checked_large}}, {{checked_medium}}, {{checked_small}} <br/>
+                  <vueMySwitch style="display:inline-block;margin:5px 0" :disabled="disabled" v-model="checked_large" size="large">Large: </vueMySwitch><br/>
+                  <vueMySwitch style="display:inline-block;margin:5px 0" :disabled="disabled" v-model="checked_medium">Medium: </vueMySwitch><br/>
+                  <vueMySwitch style="display:inline-block;margin:5px 0" :disabled="disabled" v-model="checked_small" size="small">Small: </vueMySwitch>
+                </div>`,
+    data(){return {checked_large:false,checked_medium:true,checked_small:false,disabled:true}},
+    methods: { 
+      change(){console.log(this.checked)},
+    }
+  }),{info:true}) 
+  .add('Callback before change', () => ({
+    components: { vueMySwitch },
+    template: `<div>
+                  Checked status is: {{checked}} <br/>
+                  <vueMySwitch :before-change="beforeChange" v-model="checked"></vueMySwitch><br/>
+                </div>`,
+    data(){return {checked:false}},
+    methods: { 
+      beforeChange(){
+        if(confirm("Do you want change the swith?")){
+          return true;
+        }
+        else{
+          return false;
+        }
+      }
+    }
+  }),{info:true})
+
+  storiesOf('Dropdown', module)
+  .addDecorator(withInfo)
+  .add('Default dropdown', () => ({
+    components: { vueMyDropdown },
+    template: `<div>
+                  Selected value: {{selected_1}}<br/>
+                  <vueMyDropdown :width="200" v-model="selected_1" :init_list="init_list_1"></vueMyDropdown><br/>
+                  Selected value: {{selected_2}}<br/>
+                  <vueMyDropdown :width="300" v-model="selected_2" :init_list="init_list_2"></vueMyDropdown><br/>
+                </div>`,
+    data(){return{
+        selected_1:1,
+        selected_2:3,
+        init_list_1:[{name:"AAA",value:1},{name:"BBB",value:2},{name:"CCC",value:3},{name:"DDD",value:4},{name:"EEE",value:5},{name:"FFF",value:6}],
+        init_list_2:[{name:"AAA",value:1},{name:"BBB",value:2,disabled:true},{name:"CCC",value:3},{name:"DDD",value:4,disabled:true},{name:"EEE",value:5},{name:"FFF",value:6}]
+      }
+    },
+    methods: { 
+      change(){console.log(this.checked)},
+    }
+  }),{info:true})
+  .add('Disabled dropdown', () => ({
+    components: { vueMyDropdown },
+    template: `<div>
+                  Selected value: {{selected_1}}<br/>
+                  <vueMyDropdown :width="200" :disabled="disabled" v-model="selected_1" :init_list="init_list"></vueMyDropdown><br/>
+                  Selected value: {{selected_2}}<br/>
+                  <vueMyDropdown :width="300" :disabled="disabled" v-model="selected_2" :init_list="init_list"></vueMyDropdown><br/>
+                </div>`,
+    data(){return{
+        selected_1:1,
+        selected_2:3,
+        disabled:true,
+        init_list:[{name:"AAA",value:1},{name:"BBB",value:2},{name:"CCC",value:3},{name:"DDD",value:4}]
+      }
+    },
+    methods: { 
+      change(){console.log(this.checked)},
     }
   }),{info:true})  
