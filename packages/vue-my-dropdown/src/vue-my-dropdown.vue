@@ -79,14 +79,19 @@
         this.list_show = false;
       },
       change(item){
-        if(this.disabled || item.disabled)return;
+        if(this.disabled || item.disabled || this.current_value == item.value)return;
         this.current_value = item.value;
         this.hide_dropdown();
         /**
           * Defaut triggered event for v-model
           * @type {Event}
         */            
-        this.$emit('input', this.current_value);              
+        this.$emit('input', this.current_value);
+        /**
+          * Triggered when selected value change
+          * @type {Event}
+        */            
+        this.$emit('change', this.current_value);                      
       }
     },
     directives: {

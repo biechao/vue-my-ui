@@ -1,8 +1,22 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import { storiesOf } from '@storybook/vue'
 import { withInfo } from 'storybook-addon-vue-info'
+import colDetail from './../../demo_components/col-detail/index'
+import comments from './../../demo_components/comments/index'
+import Vue from 'vue'
+Vue.component('col-detail', colDetail)
+Vue.component('comments', comments)
 
-import {vueMyRadio,vueMyRadioGroup,vueMyCheckbox,vueMyCheckboxGroup,vueMyTransfer,vueMySwitch,vueMyDropdown} from './../../packages/index'
+import {
+  vueMyRadio,
+  vueMyRadioGroup,
+  vueMyCheckbox,
+  vueMyCheckboxGroup,
+  vueMyTransfer,
+  vueMySwitch,
+  vueMyDropdown,
+  vueMyTable
+} from './../../packages/index'
 
 storiesOf('Radio', module)
   .addDecorator(withInfo)
@@ -152,7 +166,7 @@ storiesOf('Checkbox', module)
   }),{info:true})
 
 
-  storiesOf('Transfer', module)
+storiesOf('Transfer', module)
   .addDecorator(withInfo)
   .add('Default transfer', () => ({
     components: { vueMyTransfer },
@@ -219,7 +233,7 @@ storiesOf('Checkbox', module)
     }
   }),{info:true}) 
 
-  storiesOf('Switch', module)
+storiesOf('Switch', module)
   .addDecorator(withInfo)
   .add('Default switch', () => ({
     components: { vueMySwitch },
@@ -266,7 +280,7 @@ storiesOf('Checkbox', module)
     }
   }),{info:true})
 
-  storiesOf('Dropdown', module)
+storiesOf('Dropdown', module)
   .addDecorator(withInfo)
   .add('Default dropdown', () => ({
     components: { vueMyDropdown },
@@ -274,7 +288,7 @@ storiesOf('Checkbox', module)
                   Selected value: {{selected_1}}<br/>
                   <vueMyDropdown :width="200" v-model="selected_1" :init_list="init_list_1"></vueMyDropdown><br/>
                   Selected value: {{selected_2}}<br/>
-                  <vueMyDropdown :width="300" v-model="selected_2" :init_list="init_list_2"></vueMyDropdown><br/>
+                  <vueMyDropdown :width="300" @change="change" v-model="selected_2" :init_list="init_list_2"></vueMyDropdown><br/>
                 </div>`,
     data(){return{
         selected_1:1,
@@ -284,7 +298,7 @@ storiesOf('Checkbox', module)
       }
     },
     methods: { 
-      change(){console.log(this.checked)},
+      change(value){alert("selected value is "+value);},
     }
   }),{info:true})
   .add('Disabled dropdown', () => ({
@@ -305,4 +319,328 @@ storiesOf('Checkbox', module)
     methods: { 
       change(){console.log(this.checked)},
     }
+  }),{info:true})
+
+storiesOf('Table', module)
+  .addDecorator(withInfo)
+  .add('Basic table', () => ({
+    components: { vueMyTable },
+    template: `<div>
+                  <vueMyTable :param="param"></vueMyTable>
+                </div>`,
+    data(){return{
+        param:{
+          columns:[
+            {
+              index:"name",label:"Name",sortable:true,width:30
+            },
+            {
+              index:"sender",label:"Sender",sortable:true,width:30,callback:this.formatSender,align:"left"
+            },
+            {
+              index:"comments",label:"comments",sortable:false,width:38,component_name:"comments",align:"right"
+            }
+          ],
+          dataSet:[
+            {
+              id:1,name:"aaa",sender:"aaa@domain.com","comments":"this is a test data"
+            },
+            {
+              id:2,name:"bbb",sender:"bbb@domain.com","comments":"this is a test data"
+            },
+            {
+              id:4,name:"ccc",sender:"ccc@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:4,name:"ddd",sender:"ddd@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:5,name:"eee",sender:"eee@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:6,name:"fff",sender:"fff@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:7,name:"ggg",sender:"ggg@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:9,name:"hhh",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:10,name:"iii",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:11,name:"jjj",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:12,name:"kkk",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:13,name:"lll",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:14,name:"mmm",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:15,name:"nnn",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:16,name:"ooo",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:17,name:"ppp",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:18,name:"qqq",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+          ],
+          sortOrder:"asc",
+          sortColumn:"name",
+          height:300,
+          stripe:true,
+          mode:"local"
+        }
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+      formatSender(cell_value,row){
+        return '<b style="color:red;">'+cell_value+'</b>';
+      },      
+    }
+  }),{info:true})
+  .add('Table with checkbox', () => ({
+    components: { vueMyTable },
+    template: `<div>
+                  Selected items is {{selected_items}}
+                  <vueMyTable :param="param" v-on:selected-items="selectedItems"></vueMyTable>
+                </div>`,
+    data(){return{
+        param:{
+          columns:[
+            {
+              index:"id",isCheckbox:true
+            },          
+            {
+              index:"name",label:"Name",sortable:true,width:30,align:"left"
+            },
+            {
+              index:"sender",label:"Sender",sortable:true,width:30,callback:this.formatSender,align:"right"
+            },
+            {
+              index:"comments",label:"comments",sortable:false,width:38,align:"right"
+            }
+          ],
+          dataSet:[
+            {
+              id:1,name:"aaa",sender:"aaa@domain.com","comments":"this is a test data"
+            },
+            {
+              id:2,name:"bbb",sender:"bbb@domain.com","comments":"this is a test data"
+            },
+            {
+              id:4,name:"ccc",sender:"ccc@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:4,name:"ddd",sender:"ddd@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:5,name:"eee",sender:"eee@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:6,name:"fff",sender:"fff@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:7,name:"ggg",sender:"ggg@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:9,name:"hhh",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+          ],
+          sortOrder:"asc",
+          sortColumn:"name",
+          stripe:true,
+          mode:"local"
+        },
+        selected_items:[]
+      }
+    },
+    methods: { 
+      selectedItems(selectedItems){this.selected_items = selectedItems},
+      formatSender(cell_value,row){
+        return '<b style="color:red;">'+cell_value+'</b>';
+      },      
+    }
+  }),{info:true})
+  .add('Expand table', () => ({
+    components: { vueMyTable },
+    template: `<div>
+                  <vueMyTable :param="param"></vueMyTable>
+                </div>`,
+    data(){return{
+        param:{
+          columns:[
+            {
+              index:"id",isDetailRow:true
+            },                     
+            {
+              index:"name",label:"Name",sortable:true,width:30
+            },
+            {
+              index:"sender",label:"Sender",sortable:true,width:30,callback:this.formatSender
+            },
+            {
+              index:"comments",label:"comments",sortable:false,width:38
+            }
+          ],
+          dataSet:[
+            {
+              id:1,name:"aaa",sender:"aaa@domain.com","comments":"this is a test data"
+            },
+            {
+              id:2,name:"bbb",sender:"bbb@domain.com","comments":"this is a test data"
+            },
+            {
+              id:4,name:"ccc",sender:"ccc@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:4,name:"ddd",sender:"ddd@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:5,name:"eee",sender:"eee@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:6,name:"fff",sender:"fff@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:7,name:"ggg",sender:"ggg@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:9,name:"hhh",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+          ],
+          sortOrder:"asc",
+          sortColumn:"name",
+          stripe:true,
+          detailRowComponentName:"col-detail",
+          mode:"local"
+        },
+        selected_items:[]
+      }
+    },
+    methods: { 
+      selectedItems(selectedItems){this.selected_items = selectedItems},
+      formatSender(cell_value,row){
+        return '<b style="color:red;">'+cell_value+'</b>';
+      },      
+    }
   }),{info:true})  
+  .add('Resizable column table', () => ({
+    components: { vueMyTable },
+    template: `<div>
+                  <vueMyTable :param="param"></vueMyTable>
+                </div>`,
+    data(){return{
+        param:{
+          columns:[          
+            {
+              index:"name",label:"Name",sortable:true,width:10
+            },
+            {
+              index:"sender",label:"Sender",sortable:true,width:20,callback:this.formatSender
+            },
+            {
+              index:"recipient",label:"Recipient",sortable:true,width:20
+            },
+            {
+              index:"subject",label:"Subject",sortable:true,width:20
+            },           
+            {
+              index:"comments",label:"comments",sortable:false,width:30
+            }
+          ],
+          dataSet:[
+            {
+              name:"aaa",sender:"aaa@domain.com",recipient:"aaa@test.com",subject:"test subject","comments":"this is a test data"
+            },
+            {
+              name:"bbb",sender:"bbb@domain.com",recipient:"bbb@test.com",subject:"test subject","comments":"this is a test data"
+            },
+            {
+              name:"ccc",sender:"ccc@domain.com",recipient:"ccc@test.com",subject:"test subject","comments":"this is a test data"
+            }
+            ,{
+              name:"ddd",sender:"ddd@domain.com",recipient:"ddd@test.com",subject:"test subject","comments":"this is a test data"
+            }
+            ,{
+              name:"eee",sender:"eee@domain.com",recipient:"eee@test.com",subject:"test subject","comments":"this is a test data"
+            }
+            ,{
+              name:"fff",sender:"fff@domain.com",recipient:"fff@test.com",subject:"test subject","comments":"this is a test data"
+            }
+            ,{
+              name:"ggg",sender:"ggg@domain.com",recipient:"ggg@test.com",subject:"test subject","comments":"this is a test data"
+            }
+            ,{
+              name:"hhh",sender:"hhh@domain.com",recipient:"hhh@test.com",subject:"test subject","comments":"this is a test data"
+            }
+          ],
+          sortOrder:"asc",
+          sortColumn:"name",
+          stripe:true,
+          mode:"local",
+          resizable:true
+        },
+        selected_items:[]
+      }
+    },
+    methods: { 
+      selectedItems(selectedItems){this.selected_items = selectedItems},
+      formatSender(cell_value,row){
+        return '<b style="color:red;">'+cell_value+'</b>';
+      },      
+    }
+  }),{info:true})
+  .add('Table with data from backend service', () => ({
+    components: { vueMyTable },
+    template: `<div>
+                  Go to demo_components/server folder and run node server.js to provide data for this table
+                  <vueMyTable :param="param"></vueMyTable>
+                </div>`,
+    data(){return{
+        param:{
+          columns:[          
+            {
+              index:"name",label:"Name",sortable:true,width:10
+            },
+            {
+              index:"sender",label:"Sender",sortable:true,width:20,callback:this.formatSender
+            },
+            {
+              index:"recipient",label:"Recipient",sortable:true,width:20
+            },
+            {
+              index:"subject",label:"Subject",sortable:true,width:20
+            },           
+            {
+              index:"comments",label:"comments",sortable:false,width:30
+            }
+          ],
+
+          sortOrder:"asc",
+          sortColumn:"name",
+          stripe:true,
+          mode:"server",
+          resizable:true,
+          url:'http://localhost:3000'
+        },
+        selected_items:[]
+      }
+    },
+    methods: { 
+      selectedItems(selectedItems){this.selected_items = selectedItems},
+      formatSender(cell_value,row){
+        return '<b style="color:red;">'+cell_value+'</b>';
+      },      
+    }
+  }),{info:true})

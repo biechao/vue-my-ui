@@ -1,0 +1,343 @@
+.vue-my-table {
+  *{
+    box-sizing: border-box;
+    font-size: 13px;
+  }
+  width: 100%;
+  position:relative;
+  .loader-overlay {
+      background-color: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+  }
+  @keyframes spinner {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .loader {
+      display: inline-block;
+      margin: 0 auto;
+      position: relative;
+      text-indent: -9999em;
+      vertical-align: top;
+      border: 2px solid rgba(0, 0, 0, 0.2);
+      border-left-color: rgba(0, 0, 0, 0.8);
+      -webkit-transform: translateZ(0);
+      -ms-transform: translateZ(0); 
+      transform: translateZ(0);
+      animation: spinner 1s infinite linear;
+      border-radius: 50%;
+      width: 32px;
+      height: 32px;
+      position: absolute;
+      top: 50%;
+      left: 50%;      
+  }  
+  table{
+    max-width: 100%;
+    table-layout: fixed;
+    border: 1px solid #dddddd;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    thead{
+      tr{
+        background-color: #eee;
+      }
+    }
+    tr:hover{
+      background-color:#E6F4FC;
+    }
+    th{
+      border: 1px solid #ddd;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      border-bottom: 1px solid #ddd;
+      border-top:0;
+      padding: 8px 12px;
+      color: #777777;
+      font-weight: 700;
+      position: relative;
+      &.sortable{
+        cursor: pointer;
+      }
+      &.resize_hover:not(:last-child){
+        border-right: 1px solid #999999;
+      }
+      &.column_click{
+        border-right: 4px solid rgba(34, 34, 34, 0.08) !important;
+        cursor: col-resize;
+      }
+      .resize{
+        position: absolute;
+        right: 0px;
+        top: 0;
+        width: 10px;
+        height: 34px;        
+        cursor: col-resize;        
+      }
+    }
+    .vue-checkbox{
+      width:40px;
+      text-align: center;
+      .checkbox {
+        cursor: pointer;
+        width: 15px;
+        &.checked{
+          .checkbox_span{
+            background-image: url(./img/checked.svg);
+            background-position: center;
+            border: 1px solid #0096cc;
+            background-color: #0096cc;
+            -webkit-transition: 0.2s;
+            transition: 0.2s;
+          }        
+        }
+        &.partial{
+          position: relative;
+          .checkbox_span:after{
+            background-color: #0096cc;
+            width: 6px;
+            height: 6px;
+            display: inline-block;
+            position: absolute;
+            right: 4px;
+            top: 7px;
+            transition: background-color 0.2s; 
+            content:" ";         
+          }
+        }
+        .checkbox_span{
+          content: "";
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          border: 1px solid #999;
+          vertical-align: top;
+          margin-top: 3px;
+          background-color: #ffffff;
+          color: #ffffff; 
+          border-radius: 2px;
+          &:hover{
+            border: 1px solid #0096cc;
+          }         
+        }
+      }
+    }
+    .vue-detail-row{
+      width: 40px;
+    }
+    tbody tr{
+      &.stripe{
+        background-color:#f4f6fb;
+      }
+      td{
+        text-align: center;
+        padding: 8px 12px;
+        color: #222;
+        border:1px solid #ddd;
+        text-align: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;        
+        &.no-data{
+          text-align: center;
+        }
+        &.resize_hover:not(:last-child){
+          border-right: 1px solid #999999;
+        }
+        &.column_click{
+          border-right: 4px solid rgba(34, 34, 34, 0.08) !important;
+          cursor: col-resize;
+        }        
+        .fa-angle-right{
+          transition: transform .2s ease-in-out;
+        }     
+        &.expand{
+          .fa-angle-right{
+            transform: rotate(90deg);
+          }
+        }
+        &.detail_td{
+          border-left:solid 2px #ddd;
+        }
+      }
+      &.active{
+        td{
+          background-color: #FCF8DA;
+        }
+      }
+    }
+    .vue-detail-row-col{
+      cursor: pointer;
+      width: 40px;
+      text-align: center;
+    }
+  }
+  .table-pagination{
+    background-color: #f8f8f8;
+    border: 1px solid #dddddd;
+    display: inline-block;
+    width: 100%;
+    vertical-align: top;
+    .table-pagination-block{
+      float: right;
+      margin-right: 12px;
+      .dropdown{
+        position:relative;
+      }
+      &> div{
+        margin-top: 8px;
+        margin-bottom: 8px;
+        float: left;
+        &+ div{
+          margin-left: 16px;
+        }
+      }
+      .pagination-records{
+        color: #666666;
+        margin-top: 14px;
+        margin-bottom: 14px;
+        float: left;
+      }
+      .per-page{
+        color: #666;
+        margin-top: 6px;
+        cursor: pointer;
+        &:hover{
+          color: #0096cc;
+        }                       
+      }
+      input{
+        opacity: 1;
+        display: inline-block;
+        width: 32px;
+        height: 29px;
+        padding: 5px 0;
+        text-align: center;
+        border-radius: 3px;
+        border: 1px solid #cccccc; 
+        color: #222222;
+        background-color: #ffffff;
+        background-image: none;              
+      }            
+    }
+    ul.dropdown-list {
+      position: absolute;
+      top: 30px;
+      left: 0;
+      z-index: 1000;
+      float: left;
+      min-width: 0;
+      padding: 8px 0;
+      margin: 0;
+      list-style: none;
+      font-size: 13px;
+      text-align: left;
+      background-color: #ffffff;
+      border: 1px solid #bbbbbb;
+      border-radius: 0;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      background-clip: padding-box;
+      li{
+        list-style: none;
+        line-height: 20px;
+        a{
+          display: block;
+          clear: both;
+          font-weight: normal;
+          line-height: 20px;
+          color: #222222;
+          text-decoration: none;
+          white-space: nowrap;
+          height: 30px;
+          .icon-class{
+            float: left;
+            display: inline;
+            margin: 4px 0px 10px 10px;
+            width: 15px;
+            .icon{
+              color:#0096cc;
+            }
+            
+          }
+          .number{
+            float: right;
+            display: inline;
+            margin: 4px 10px 10px 10px;
+            text-align: left;
+            width: 35px;
+            
+          }
+        }
+       a:hover{
+          color: #222222;
+          background-color: #eeeeee;
+       }
+      }
+    }
+    .pagination{
+      vertical-align: top;
+      margin: 0;
+      display: inline-block;
+      padding-left: 0;
+      border-radius: 3px;
+      li{
+        display: inline;
+        &> a, &> span{
+          position: relative;
+          float: left;
+          padding: 5px 0;
+          text-decoration: none;
+          color: #222222;
+          background-color: #ffffff;
+          border: 1px solid #cccccc;
+          margin-left: -1px;
+          width: 32px;
+          text-align: center;
+          cursor: pointer;
+        }
+        &> a:hover ,& > span:focus{
+          z-index: 3;
+          color: #222222;
+          background-color: #f4f4f4;
+          border-color: #999999;          
+        }
+        &> a:active ,& > span:active{
+          z-index: 3;
+          color: #222222;
+          background-color: #eeeeee;
+          border-color: #bbbbbb;
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+          background-image: none;
+        }
+        &:first-child > a, &:first-child > span{
+          margin-left: 0;
+          border-bottom-left-radius: 3px;
+          border-top-left-radius: 3px;          
+        }
+        &:last-child > a, &:last-child > span{
+          border-bottom-right-radius: 3px;
+          border-top-right-radius: 3px;
+        }
+        &.disabled a{
+          cursor: not-allowed;
+          opacity: .5;
+          &:hover{
+            color: #222222;
+            background-color: #ffffff;
+            border: 1px solid #cccccc;            
+          }
+        }
+      }     
+    }    
+  }
+ }

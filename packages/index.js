@@ -12,6 +12,7 @@ import vueMyCheckboxGroup from './vue-my-checkbox-group/index.js'
 import vueMyTransfer from './vue-my-transfer/index.js'
 import vueMySwitch from './vue-my-switch/index.js'
 import vueMyDropdown from './vue-my-dropdown/index.js'
+import vueMyTable from './vue-my-table/index.js'
 
 const components = [
   vueMyRadio,
@@ -20,7 +21,8 @@ const components = [
   vueMyCheckboxGroup,
   vueMyTransfer,
   vueMySwitch,
-  vueMyDropdown
+  vueMyDropdown,
+  vueMyTable
 ]
 const install = function(vue) {
   /* istanbul ignore if */
@@ -43,5 +45,6 @@ export {
   vueMyCheckboxGroup,
   vueMyTransfer,
   vueMySwitch,
-  vueMyDropdown
+  vueMyDropdown,
+  vueMyTable
 }
