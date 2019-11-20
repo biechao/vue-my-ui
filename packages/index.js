@@ -1,9 +1,10 @@
 import Vue from "vue"
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { faCalendarAlt,faClock } from '@fortawesome/free-regular-svg-icons'
+import { faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck,faSortDown,faChevronLeft,faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-library.add(faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck);
+library.add(faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck,faSortDown,faChevronLeft,faChevronRight,faCalendarAlt,faClock);
 // 导入所有组件
 import vueMyRadio from './vue-my-radio/index.js'
 import vueMyRadioGroup from './vue-my-radio-group/index.js'
@@ -13,6 +14,7 @@ import vueMyTransfer from './vue-my-transfer/index.js'
 import vueMySwitch from './vue-my-switch/index.js'
 import vueMyDropdown from './vue-my-dropdown/index.js'
 import vueMyTable from './vue-my-table/index.js'
+import vueMyDatepicker from './vue-my-datepicker/index.js'
 
 const components = [
   vueMyRadio,
@@ -22,7 +24,8 @@ const components = [
   vueMyTransfer,
   vueMySwitch,
   vueMyDropdown,
-  vueMyTable
+  vueMyTable,
+  vueMyDatepicker
 ]
 const install = function(vue) {
   /* istanbul ignore if */
@@ -46,5 +49,6 @@ export {
   vueMyTransfer,
   vueMySwitch,
   vueMyDropdown,
-  vueMyTable
+  vueMyTable,
+  vueMyDatepicker
 }

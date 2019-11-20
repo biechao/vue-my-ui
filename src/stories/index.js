@@ -15,7 +15,8 @@ import {
   vueMyTransfer,
   vueMySwitch,
   vueMyDropdown,
-  vueMyTable
+  vueMyTable,
+  vueMyDatepicker
 } from './../../packages/index'
 
 storiesOf('Radio', module)
@@ -644,3 +645,155 @@ storiesOf('Table', module)
       },      
     }
   }),{info:true})
+
+storiesOf('Datepicker', module)
+  .addDecorator(withInfo)
+  .add('Local datetime', () => ({
+    components: { vueMyDatepicker },
+    template: `<div>
+                  Selected time_range is: {{time_range.start}} - {{time_range.end}}<br/>
+                  <vueMyDatepicker :param="param" v-on:select-time-range="selectTimeRange"></vueMyDatepicker>
+                </div>`,
+    data(){return{
+        param:{
+          timeRange: 1,
+          reloadFlag: false,
+          dataTimeLabelPosition: 'right',
+          initStart:"2019-09-16 01:43:10",
+          initEnd:"2019-09-16 05:43:10",
+          useLocalTime:true      
+        },
+        time_range:"",
+      }
+    },
+    methods: { 
+      selectTimeRange(time_range){
+        this.time_range = time_range;
+      },
+    }
+  }),{info:true})
+  .add('Local datetime with left panel', () => ({
+    components: { vueMyDatepicker },
+    template: `<div>
+                  Selected time_range is: {{time_range.start}} - {{time_range.end}}
+                  <vueMyDatepicker style="display:inline-block" :param="param" v-on:select-time-range="selectTimeRange"></vueMyDatepicker>
+                </div>`,
+    data(){return{
+        param:{
+          timeRange: 2,
+          reloadFlag: false,
+          dataTimeLabelPosition: 'left',
+          initStart:"2019-09-16 01:43:10",
+          initEnd:"2019-09-16 05:43:10",
+          useLocalTime:false     
+        },
+        time_range:"",
+      }
+    },
+    methods: { 
+      selectTimeRange(time_range){
+        this.time_range = time_range;
+      },
+    }
+  }),{info:true})  
+  .add('Server datetime', () => ({
+    components: { vueMyDatepicker },
+    template: `<div>
+                  Selected time_range is: {{time_range.start}} - {{time_range.end}}<br/>
+                  <vueMyDatepicker :param="param" v-on:select-time-range="selectTimeRange" v-on:change-time-range="changeTimeRange"></vueMyDatepicker>
+                </div>`,
+    data(){return{
+        param:{
+          timeRange: 1,
+          reloadFlag: false,
+          dataTimeLabelPosition: 'right',
+          initStart:"2019-09-16 01:43:10",//this should be start time from server
+          initEnd:"2019-09-16 05:43:10",//this should be end time from server
+          useLocalTime:false      
+        },
+        time_range:"",
+      }
+    },
+    methods: { 
+      selectTimeRange(time_range){
+        this.time_range = time_range;
+      },
+      changeTimeRange(time_range_value){
+      this.param.timeRange = time_range_value;
+        if(time_range_value == 1){
+          this.param.initStart = "2019-09-16 01:43:10";
+          this.param.initEnd = "2019-09-16 05:43:10";
+          this.reloadTimeRange();
+        }else if(time_range_value == 2){
+          this.param.initStart = "2019-09-15 05:43:10";
+          this.param.initEnd = "2019-09-16 05:43:10";
+          this.reloadTimeRange();
+        }else if(time_range_value == 3){
+          this.param.initStart = "2019-09-19 00:00:00";
+          this.param.initEnd = "2019-09-16 05:43:10";
+          this.reloadTimeRange();        
+        }else if(time_range_value == 4){
+          this.param.initStart = "2019-08-16 00:00:00";
+          this.param.initEnd = "2019-09-16 05:43:10";
+          this.reloadTimeRange();        
+        }else if(time_range_value == 5){
+          this.param.initStart = "2019-06-16 00:00:00";
+          this.param.initEnd = "2019-09-16 05:43:10";
+          this.reloadTimeRange();        
+        }        
+      },
+      reloadTimeRange(){
+        this.param.reloadFlag = !this.param.reloadFlag;
+      }      
+    }
+  }),{info:true})
+  .add('中文时间', () => ({
+    components: { vueMyDatepicker },
+    template: `<div>
+                  Selected time_range is: {{time_range.start}} - {{time_range.end}}<br/>
+                  <vueMyDatepicker :param="param" v-on:select-time-range="selectTimeRange"></vueMyDatepicker>
+                </div>`,
+    data(){return{
+        param:{
+          timeRange: 1,
+          reloadFlag: false,
+          dataTimeLabelPosition: 'right',
+          initStart:"2019-09-16 01:43:10",
+          initEnd:"2019-09-16 05:43:10",
+          useLocalTime:true,
+          locale:"zh_CN"      
+        },
+        time_range:"",
+      }
+    },
+    methods: { 
+      selectTimeRange(time_range){
+        this.time_range = time_range;
+      },
+    }
+  }),{info:true})
+  .add('日本時間', () => ({
+    components: { vueMyDatepicker },
+    template: `<div>
+                  Selected time_range is: {{time_range.start}} - {{time_range.end}}<br/>
+                  <vueMyDatepicker :param="param" v-on:select-time-range="selectTimeRange"></vueMyDatepicker>
+                </div>`,
+    data(){return{
+        param:{
+          timeRange: 1,
+          reloadFlag: false,
+          dataTimeLabelPosition: 'right',
+          initStart:"2019-09-16 01:43:10",
+          initEnd:"2019-09-16 05:43:10",
+          useLocalTime:true,
+          locale:"ja_JP"      
+        },
+        time_range:"",
+      }
+    },
+    methods: { 
+      selectTimeRange(time_range){
+        this.time_range = time_range;
+      },
+    }
+  }),{info:true})      

@@ -166,22 +166,20 @@ export default {
     props: {
         param: {
             type: Object,
-            default () {
-                return {
-                    columns: [],
-                    sortOrder: "desc",
-                    sortColumn: "",
-                    defaultPageNumber: 10,
-                    pageNumberList: [],
-                    url: "/json.data",
-                    detailRowComponentName: "",
-                    reloadFlag: false,
-                    buttonAdd: {},
-                    buttonAction: [],
-                    dataSet: [],
-                    mode: "local",
-                    resizable:false
-                }
+            default:{
+                columns: [],
+                sortOrder: "desc",
+                sortColumn: "",
+                defaultPageNumber: 10,
+                pageNumberList: [],
+                url: "/json.data",
+                detailRowComponentName: "",
+                reloadFlag: false,
+                buttonAdd: {},
+                buttonAction: [],
+                dataSet: [],
+                mode: "local",
+                resizable:false
             }
         }
     },
@@ -390,11 +388,19 @@ export default {
                 }
                 Vue.set(_this.rows, index, row);
             });
+           /**
+               * When selected item changes will trigger this function
+               * @type {Event}
+            */              
             this.$emit('selected-items',this.getSelectedItems());
         },
         clickCheckItem(row, index) {
             row.checked = !row.checked;
             Vue.set(this.rows, index, row);
+            /**
+               * When selected item changes will trigger this function
+               * @type {Event}
+            */            
             this.$emit('selected-items',this.getSelectedItems());
         },
         clickDetailRow(row,index) {
