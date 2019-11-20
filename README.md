@@ -3,6 +3,7 @@
 
 ## Table of contents
 * [General info](#general-info)
+* [Step up](#set-up)
 * [Storybook](#storybook)
 * [Features](#features)
 * [Status](#status)
@@ -11,6 +12,12 @@
 
 ## General info
 The library contain some UI components, and will add more components are on the way...
+
+## Set up
+git clone https://github.com/biechao/vue-my-ui.git
+cd vue-my-ui
+npm install
+npm run storybook
 
 ## Storybook
 Storybook is in [github](https://biechao.github.io/2019/11/20/storybook%20for%20vue-my-vue/?path=/story/radio--single-default-radio)
