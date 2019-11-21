@@ -31,6 +31,8 @@ Storybook is in [github](https://biechao.github.io/2019/11/20/storybook%20for%20
 * Switch
 * Dropdown
 * Table 
+* Tabs
+* Tag input
 
 To-do list:
 * too much

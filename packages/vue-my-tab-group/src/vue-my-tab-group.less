@@ -1,0 +1,91 @@
+.vue-my-tab-group{
+	.tab-header{
+		margin:0;
+		padding: 0;
+		list-style: none;
+		li{
+			float: left;
+			position: relative;			
+			&.default{
+				div{
+					color: #777777;
+			    padding: 12px 16px;
+			    text-align: center;
+			    cursor: pointer;
+			    &:hover{
+				    border-bottom: 2px solid #bbbbbb;
+				    padding-bottom: 10px;		    	
+			    }
+			    &.active{
+						color: #222222;
+				    font-weight: bold;
+				    background-color: #ffffff;
+				    border-bottom: 2px solid #db3d44;
+				    padding-bottom: 10px;
+				    cursor: default;		    	
+			    }
+			    &.disabled{
+			    	cursor: not-allowed;
+			    	opacity: .5;
+			    	color: #777777;
+			    	&:hover{
+			    		 border-bottom: none;
+			    	};
+			    }			
+				}
+			}
+			&.classic{
+				div{
+			    color: #777777;
+			    border: 1px solid #cccccc;
+			    background-color: #fbfbfb;
+			    background-image: linear-gradient(to bottom, #fbfbfb 0%, #ececec 100%);
+			    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbfbfb', endColorstr='#ffececec', GradientType=0);
+			    background-repeat: repeat-x;
+			    padding: 8px 16px;
+			    line-height: 20px;
+			    position: relative;
+			    text-align: center;
+			    cursor: pointer;
+			    &:hover{
+						color: #777777;
+				    background-color: #ffffff;
+				    background-image: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+				    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff5f5f5', GradientType=0);
+				    background-repeat: repeat-x;
+				    border-color: #bbbbbb;
+			    }
+			    &.active{
+				    color: #222222;
+				    font-weight: bold;
+				    background-color: #ffffff;
+				    background-image: none;
+				    border-bottom-color: transparent;
+				    cursor: default;
+				    border-top: 2px solid #db3d44;
+				    padding-top: 7px;
+				    cursor: default;		    	
+			    }
+			    &.disabled{
+			    	cursor: not-allowed;
+			    	opacity: .5;
+			    	color: #777777;
+			    	&:hover{
+					    background-color: #fbfbfb;
+					    background-image: linear-gradient(to bottom, #fbfbfb 0%, #ececec 100%);
+					    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbfbfb', endColorstr='#ffececec', GradientType=0);
+					    background-repeat: repeat-x;
+			    	};
+			    }			    		    
+				}
+			}
+			&:not(:last-child) > div{
+				border-right: none;
+			}
+		}
+	}
+	.tab-content{
+		clear: both;
+	}
+
+}

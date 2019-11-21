@@ -16,7 +16,10 @@ import {
   vueMySwitch,
   vueMyDropdown,
   vueMyTable,
-  vueMyDatepicker
+  vueMyDatepicker,
+  vueMyTabGroup,
+  vueMyTab,
+  vueMyTagInput
 } from './../../packages/index'
 
 storiesOf('Radio', module)
@@ -796,4 +799,163 @@ storiesOf('Datepicker', module)
         this.time_range = time_range;
       },
     }
-  }),{info:true})      
+  }),{info:true})
+
+storiesOf('Tab', module)
+  .addDecorator(withInfo)
+  .add('Basic tab', () => ({
+    components: { vueMyTabGroup,vueMyTab },
+    template: `<div>
+                  current active tab is {{current_tab}}<br/><br/>
+                  <vueMyTabGroup v-model="current_tab">
+                    <vueMyTab name="tab_1" label="tab 1">tab 1 content <button @click="tab_1_click">click me</button></vueMyTab>
+                    <vueMyTab name="tab_2" label="tab 2">tab 2 content </vueMyTab>
+                    <vueMyTab name="tab_3" label="tab 3">tab 3 content </vueMyTab>
+                    <vueMyTab name="tab_4" label="tab 4">tab 4 content </vueMyTab>
+                  </vueMyTabGroup>
+                </div>`,
+    data(){return{
+        current_tab:"tab_1"
+      }
+    },
+    methods: {
+      tab_1_click(){
+        alert("You clicked button in tab 1");
+      }
+    }
+  }),{info:true})
+  .add('Disabled basic tab', () => ({
+    components: { vueMyTabGroup,vueMyTab },
+    template: `<div>
+                  current active tab is {{current_tab}}<br/><br/>
+                  <vueMyTabGroup v-model="current_tab">
+                    <vueMyTab name="tab_1" label="tab 1">tab 1 content <button @click="tab_1_click">click me</button></vueMyTab>
+                    <vueMyTab name="tab_2" label="tab 2" :disabled="disabled">tab 2 content </vueMyTab>
+                    <vueMyTab name="tab_3" label="tab 3">tab 3 content </vueMyTab>
+                    <vueMyTab name="tab_4" label="tab 4">tab 4 content </vueMyTab>
+                  </vueMyTabGroup>
+                </div>`,
+    data(){return{
+        current_tab:"tab_1",
+        disabled:true
+      }
+    },
+    methods: {
+      tab_1_click(){
+        alert("You clicked button in tab 1");
+      }
+    }
+  }),{info:true})  
+  .add('Classic tab', () => ({
+    components: { vueMyTabGroup,vueMyTab },
+    template: `<div>
+                  current active tab is {{current_tab}}<br/><br/>
+                  <vueMyTabGroup v-model="current_tab" type="classic">
+                    <vueMyTab name="tab_1" label="tab 1">tab 1 content <button @click="tab_1_click">click me</button></vueMyTab>
+                    <vueMyTab name="tab_2" label="tab 2">tab 2 content </vueMyTab>
+                    <vueMyTab name="tab_3" label="tab 3">tab 3 content </vueMyTab>
+                    <vueMyTab name="tab_4" label="tab 4">tab 4 content </vueMyTab>
+                  </vueMyTabGroup>
+                </div>`,
+    data(){return{
+        current_tab:"tab_1"
+      }
+    },
+    methods: {
+      tab_1_click(){
+        alert("You clicked button in tab 1");
+      }
+    }
+  }),{info:true})   
+  .add('Disabled classic tab', () => ({
+    components: { vueMyTabGroup,vueMyTab },
+    template: `<div>
+                  current active tab is {{current_tab}}<br/><br/>
+                  <vueMyTabGroup v-model="current_tab" type="classic">
+                    <vueMyTab name="tab_1" label="tab 1">tab 1 content <button @click="tab_1_click">click me</button></vueMyTab>
+                    <vueMyTab name="tab_2" label="tab 2" :disabled="disabled">tab 2 content </vueMyTab>
+                    <vueMyTab name="tab_3" label="tab 3">tab 3 content </vueMyTab>
+                    <vueMyTab name="tab_4" label="tab 4">tab 4 content </vueMyTab>
+                  </vueMyTabGroup>
+                </div>`,
+    data(){return{
+        current_tab:"tab_1",
+        disabled:true
+      }
+    },
+    methods: {
+      tab_1_click(){
+        alert("You clicked button in tab 1");
+      }
+    }
+  }),{info:true})
+
+storiesOf('Tag input', module)
+  .addDecorator(withInfo)
+  .add('Basic tag', () => ({
+    components: { vueMyTagInput },
+    template: `<div style="width:700px">
+                  current active tab is {{current_value}} <br/> Duplicate status is {{is_duplicate}}<br/><br/>
+                  <vueMyTagInput v-model="current_value" :width="500" v-on:duplicate="duplicate"></vueMyTagInput>
+                </div>`,
+    data(){return{
+        current_value:["Tom","Jim","James"],
+        is_duplicate:false,
+      }
+    },
+    methods: {
+      duplicate(){
+        this.is_duplicate = true;
+      }
+    },
+    watch:{
+      current_value(){
+        this.is_duplicate = false;
+      }
+    }
+  }),{info:true}) 
+  .add('Limit width tag', () => ({
+    components: { vueMyTagInput },
+    template: `<div style="width:700px">
+                  current active tab is {{current_value}} <br/> Duplicate status is {{is_duplicate}}<br/><br/>
+                  <vueMyTagInput v-model="current_value" :width="500" :tag_width="100" v-on:duplicate="duplicate"></vueMyTagInput>
+                </div>`,
+    data(){return{
+        current_value:["Tommmmmmmm","Jim","Jamessssssssss"],
+        is_duplicate:false,
+      }
+    },
+    methods: {
+      duplicate(){
+        this.is_duplicate = true;
+      }
+    },
+    watch:{
+      current_value(){
+        this.is_duplicate = false;
+      }
+    }
+  }),{info:true}) 
+  .add('Disabled tag', () => ({
+    components: { vueMyTagInput },
+    template: `<div style="width:700px">
+                  current active tab is {{current_value}} <br/> Duplicate status is {{is_duplicate}}<br/><br/>
+                  <vueMyTagInput v-model="current_value" :width="500" :disabled="disabled"  v-on:duplicate="duplicate"></vueMyTagInput>
+                </div>`,
+    data(){return{
+        current_value:["Tom","Jim","James"],
+        is_duplicate:false,
+        disabled:true
+      }
+    },
+    methods: {
+      duplicate(){
+        this.is_duplicate = true;
+      }
+    },
+    watch:{
+      current_value(){
+        this.is_duplicate = false;
+      }
+    }
+  }),{info:true})    
