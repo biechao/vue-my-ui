@@ -22,7 +22,7 @@ npm run storybook
 ```
 
 ## Storybook
-Storybook is in [github](https://biechao.github.io/2019/11/20/storybook%20for%20vue-my-vue/?path=/story/radio--single-default-radio)
+Storybook is in [github](https://biechao.github.io/2019/11/20/storybook-static/)
 
 ## Features
 * Radio
