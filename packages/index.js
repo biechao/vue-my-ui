@@ -1,10 +1,10 @@
 import Vue from "vue"
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faCalendarAlt,faClock } from '@fortawesome/free-regular-svg-icons'
-import { faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck,faSortDown,faChevronLeft,faChevronRight,faTimes } from '@fortawesome/free-solid-svg-icons'
+import { faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck,faSortDown,faChevronLeft,faChevronRight,faTimes,faPencilAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-library.add(faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck,faSortDown,faChevronLeft,faChevronRight,faCalendarAlt,faClock,faTimes);
+library.add(faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck,faSortDown,faChevronLeft,faChevronRight,faCalendarAlt,faClock,faTimes,faPencilAlt);
 import _ from "lodash";
 
 // import all components
@@ -20,6 +20,7 @@ import vueMyDatepicker from './vue-my-datepicker/index.js'
 import vueMyTabGroup from './vue-my-tab-group/index.js'
 import vueMyTab from './vue-my-tab/index.js'
 import vueMyTagInput from './vue-my-tag-input/index.js'
+import vueMySelect from './vue-my-select/index.js'
 
 const components = [
   vueMyRadio,
@@ -33,7 +34,8 @@ const components = [
   vueMyDatepicker,
   vueMyTabGroup,
   vueMyTab,
-  vueMyTagInput
+  vueMyTagInput,
+  vueMySelect
 ]
 const install = function(vue) {
   /* istanbul ignore if */
@@ -61,5 +63,6 @@ export {
   vueMyDatepicker,
   vueMyTabGroup,
   vueMyTab,
-  vueMyTagInput 
+  vueMyTagInput,
+  vueMySelect 
 }

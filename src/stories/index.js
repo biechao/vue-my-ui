@@ -19,7 +19,8 @@ import {
   vueMyDatepicker,
   vueMyTabGroup,
   vueMyTab,
-  vueMyTagInput
+  vueMyTagInput,
+  vueMySelect
 } from './../../packages/index'
 
 storiesOf('Radio', module)
@@ -400,7 +401,6 @@ storiesOf('Table', module)
           ],
           sortOrder:"asc",
           sortColumn:"name",
-          height:300,
           stripe:true,
           mode:"local"
         }
@@ -413,6 +413,92 @@ storiesOf('Table', module)
       },      
     }
   }),{info:true})
+  .add('Tabel with fixed header', () => ({
+    components: { vueMyTable },
+    template: `<div>
+                  <vueMyTable :param="param"></vueMyTable>
+                </div>`,
+    data(){return{
+        param:{
+          columns:[
+            {
+              index:"name",label:"Name",sortable:true,width:30
+            },
+            {
+              index:"sender",label:"Sender",sortable:true,width:30,callback:this.formatSender,align:"left"
+            },
+            {
+              index:"comments",label:"comments",sortable:false,width:38,component_name:"comments",align:"right"
+            }
+          ],
+          dataSet:[
+            {
+              id:1,name:"aaa",sender:"aaa@domain.com","comments":"this is a test data"
+            },
+            {
+              id:2,name:"bbb",sender:"bbb@domain.com","comments":"this is a test data"
+            },
+            {
+              id:4,name:"ccc",sender:"ccc@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:4,name:"ddd",sender:"ddd@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:5,name:"eee",sender:"eee@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:6,name:"fff",sender:"fff@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:7,name:"ggg",sender:"ggg@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:9,name:"hhh",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:10,name:"iii",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:11,name:"jjj",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:12,name:"kkk",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:13,name:"lll",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:14,name:"mmm",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:15,name:"nnn",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:16,name:"ooo",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:17,name:"ppp",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+            ,{
+              id:18,name:"qqq",sender:"hhh@domain.com","comments":"this is a test data"
+            }
+          ],
+          sortOrder:"asc",
+          sortColumn:"name",
+          height:200,
+          stripe:true,
+          mode:"local"
+        }
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+      formatSender(cell_value,row){
+        return '<b style="color:red;">'+cell_value+'</b>';
+      },      
+    }
+  }),{info:true})  
   .add('Table with checkbox', () => ({
     components: { vueMyTable },
     template: `<div>
@@ -958,4 +1044,120 @@ storiesOf('Tag input', module)
         this.is_duplicate = false;
       }
     }
-  }),{info:true})    
+  }),{info:true})
+
+storiesOf('Select', module)
+  .addDecorator(withInfo)
+  .add('Default select', () => ({
+    components: { vueMySelect },
+    template: `<div>
+                  Selected value: {{selected}}<br/>
+                  <vueMySelect placeholder="Select" :width="400" v-model="selected" :init_list="init_list_1"></vueMySelect><br/>
+                </div>`,
+    data(){return{
+        selected:[{name:"BBB",value:2},{name:"DDD",value:4}],
+        init_list_1:[{name:"AAA",value:1},{name:"BBB",value:2},{name:"CCC",value:3},{name:"DDD",value:4},{name:"EEE",value:5},{name:"FFF",value:6}],
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+    }
+  }),{info:true})
+  .add('Disabled select', () => ({
+    components: { vueMySelect },
+    template: `<div>
+                  Selected value: {{selected_1}}<br/>
+                  <vueMySelect placeholder="Select" :width="400" :disabled="disabled" v-model="selected_1" :init_list="init_list_1"></vueMySelect><br/>
+                  Selected value: {{selected}}<br/>
+                  <vueMySelect placeholder="Select" :width="400" :disabled="disabled" v-model="selected" :init_list="init_list_1"></vueMySelect><br/>
+                </div>`,
+    data(){return{
+        selected_1:[{name:"AAA",value:1},{name:"CCC",value:3}],
+        selected:[{name:"BBB",value:2},{name:"DDD",value:4}],
+        disabled:true,
+        init_list_1:[{name:"AAA",value:1},{name:"BBB",value:2},{name:"CCC",value:3},{name:"DDD",value:4},{name:"EEE",value:5},{name:"FFF",value:6}],
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+    }
+  }),{info:true})  
+  .add('Select with disabled item', () => ({
+    components: { vueMySelect },
+    template: `<div>
+                  Selected value: {{selected}}<br/>
+                  <vueMySelect placeholder="Select" :width="400" v-model="selected" :init_list="init_list_1"></vueMySelect><br/>
+                </div>`,
+    data(){return{
+        selected_1:[],
+        selected:[{name:"BBB",value:2},{name:"DDD",value:4}],
+        init_list_1:[{name:"AAA",value:1,disabled:true},{name:"BBB",value:2},{name:"CCC",value:3,disabled:true},{name:"DDD",value:4},{name:"EEE",value:5},{name:"FFF",value:6}],
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+    }
+  }),{info:true})
+  .add('Select with fixed width', () => ({
+    components: { vueMySelect },
+    template: `<div>
+                  Selected value: {{selected}}<br/>
+                  <vueMySelect placeholder="Select" :item_width="50" :width="420" v-model="selected" :init_list="init_list_1"></vueMySelect><br/>
+                </div>`,
+    data(){return{
+        selected:[{name:"CCCCCCCCCC",value:3},{name:"EEEEEEEEEEE",value:5}],
+        init_list_1:[{name:"AAAAA",value:1},{name:"BBBBBBBBBB",value:2},{name:"CCCCCCCCCC",value:3},{name:"DDDDDDDD",value:4},{name:"EEEEEEEEEEE",value:5},{name:"FFFFFFFFFFFF",value:6}],
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+    }
+  }),{info:true})  
+  .add('Select with filter', () => ({
+    components: { vueMySelect },
+    template: `<div>
+                  Selected value: {{selected}}<br/>
+                  <vueMySelect placeholder="Select" :filterable="filterable" :width="400" v-model="selected" :init_list="init_list_1"></vueMySelect><br/>
+                </div>`,
+    data(){return{
+        selected:[],
+        filterable:true,
+        init_list_1:[{name:"A",value:1},{name:"AB",value:2},{name:"ABC",value:3},{name:"ABCD",value:4},{name:"ABCDE",value:5},{name:"ABCEF",value:6}],
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+    }
+  }),{info:true})
+  .add('Select with server data', () => ({
+    components: { vueMySelect },
+    template: `<div>
+                  Selected value: {{selected}}<br/>
+                  <vueMySelect :placeholder="placeholder" :filterable="filterable" :server_mode="server_mode" :server_method="server_method"  :width="400" v-model="selected" :loading="loading" :init_list="init_list_1" :loading_text="loading_text"></vueMySelect><br/>
+                </div>`,
+    data(){return{
+        selected:[],
+        filterable:true,
+        server_mode:true,
+        init_list_1:[],
+        placeholder:"Type keyword to search",
+        loading:false,
+        loading_text:"Loading...",
+        no_data_text:"No data to display"
+      }
+    },
+    methods: { 
+      change(value){alert("selected value is "+value);},
+      server_method(keyword){
+        this.loading = true;
+        setTimeout(()=>{
+          this.init_list_1 = _.filter([{name:"A",value:1},{name:"AB",value:2},{name:"ABC",value:3},{name:"ABCD",value:4},{name:"ABCDE",value:5},{name:"ABCEF",value:6}],item=>item.name.toLowerCase().indexOf(keyword.toLowerCase()) !== -1);
+          this.loading = false;
+          if(this.init_list_1.length==0){
+            this.init_list_1 = [];
+          }
+        },1000)
+      }      
+    }
+  }),{info:true})  
+  

@@ -33,6 +33,7 @@ Storybook is in [github](https://biechao.github.io/2019/11/20/storybook-static/)
 * Table 
 * Tabs
 * Tag input
+* Select
 
 To-do list:
 * too much

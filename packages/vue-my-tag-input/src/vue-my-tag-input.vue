@@ -2,7 +2,7 @@
   <div class="vue-my-tag-input" @click="focus_input" :class="{'disabled':disabled}">
      <ul>
       <li class="tag" v-for="(item,index) in current_value" @click.stop="stop">
-        <span class="content" :title="item" :class="{'limit':tag_width && tag_width > 0}" :style="tag_widt_style">{{item}}</span>
+        <span class="content" :title="item" :class="{'limit':tag_width && tag_width > 0}" :style="tag_width_style">{{item}}</span>
         <span class="close" @click="remove(item)"><font-awesome-icon class="icon" :icon="['fas','times']" /></span>
       </li>
       <input type="text" :style="{'width':input_width - 6 +'px'}" :disabled="disabled" v-focus="focused" @keydown.delete="remove_last" @blur="blur_input" @keyup.enter="add" v-model="input_value"/>
@@ -45,7 +45,7 @@
       }      
     },
     computed:{
-      tag_widt_style(){
+      tag_width_style(){
         if(this.tag_width && this.tag_width > 0){
           return {
             "max-width":this.tag_width + 'px'
