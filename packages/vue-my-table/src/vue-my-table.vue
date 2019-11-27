@@ -11,7 +11,7 @@
                         </th>
                         <th :width="columnWidth(column)" v-else-if="column.isDetailRow" class="vue-detail-row">
                         </th>
-                        <th :width="columnWidth(column)" v-else :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" @click="resort(column.sortable,column.index)" :style="{'width':columnStyleWidth(index) || ''}" :align="column.align || 'left'">
+                        <th :width="columnWidth(column)" v-else :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" @click="resort(column.sortable,column.index)" :align="column.align || 'left'">
                             {{column.label}}
                             <font-awesome-icon class="icon" :icon="['fas','sort-alpha-down-alt']" v-show="sortOrder =='desc' && sortColumn == column.index" />
                             <font-awesome-icon class="icon" :icon="['fas','sort-alpha-up']" v-show="sortOrder =='asc' && sortColumn == column.index" />
@@ -38,15 +38,15 @@
 	                            <td :width="columnWidth(column)" v-else-if="column.isDetailRow" class="vue-detail-row-col" @click="clickDetailRow(row,index)" :class="{'expand':row.expand}">
 	                                 <font-awesome-icon class="icon" :icon="['fas','angle-right']" />
 	                            </td>
-	                            <td :width="columnWidth(column)" v-else-if="column.callback" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" v-html="column.callback(row[column.index],row)" :style="{'width':columnStyleWidth(column_index) || '','text-align':column.align || 'left'}">
+	                            <td :width="columnWidth(column)" v-else-if="column.callback" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" v-html="column.callback(row[column.index],row)" :style="{'text-align':column.align || 'left'}">
 	                            </td>
-	                            <td :width="columnWidth(column)" v-else-if="column.component_name" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'width':columnStyleWidth(column_index) || '','text-align':column.align || 'left'}">
+	                            <td :width="columnWidth(column)" v-else-if="column.component_name" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'text-align':column.align || 'left'}">
 	                                <component :is="column.component_name" :row-data="row" :param="typeof(column.param) !='undefined'?column.param:{}" :key="row.id" v-on:update-component="updateComponent"></component>
 	                            </td>
 	                            <td :width="columnWidth(column)" v-else-if="column.delete" align="center" class="delete">
 	                                <span class="tmicon tmicon-delete" @click.stop="removeRow(row,index)">&nbsp;</span>
 	                            </td>
-	                            <td :width="columnWidth(column)" v-else :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'width':columnStyleWidth(column_index) || '','text-align':column.align || 'left'}" :title="row[column.index]" :align="column.align || 'left'">
+	                            <td :width="columnWidth(column)" v-else :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'text-align':column.align || 'left'}" :title="row[column.index]" :align="column.align || 'left'">
 	                                {{row[column.index]}}
 	                            </td>
 	                        </template>
@@ -307,14 +307,46 @@ export default {
         mouse_move(e){
             if(this.current_column){
                 let diffX = e.pageX - this.pageX;
-                if(this.next_column){
-                    let tmp_next = _.clone(this.columns[this.current_column_index+1]);
-                    tmp_next.style = {width:this.next_column_width - (diffX)};
-                    Vue.set(this.columns, this.current_column_index+1, tmp_next);
+                let table_width = this.$root.$el.offsetWidth;
+                if(diffX > 0){
+                    var gap = 0;
+                    if(this.next_column){
+                        let tmp_next = _.clone(this.columns[this.current_column_index+1]);
+                        let width = 0;
+                        if((this.next_column_width - (diffX)) < 80){
+                            gap = 80 - (this.next_column_width - (diffX));
+                            width =   (80 / table_width).toFixed(3) * 100;
+                        }else{
+                            width =   ((this.next_column_width - diffX) / table_width).toFixed(3) * 100;                         
+                        }
+                        tmp_next.width = width;
+                        Vue.set(this.columns, this.current_column_index+1, tmp_next);
+                        console.log(this.columns);                        
+                    }
+                    let tmp_current = _.clone(this.columns[this.current_column_index]);
+                    tmp_current.width = ((this.current_column_width + diffX - gap) / table_width).toFixed(3) * 100;
+                    Vue.set(this.columns, this.current_column_index, tmp_current);
+
+
+                }else{
+                    var gap = 0;
+                    let width = 0;
+                    if((this.current_column_width + diffX) < 80){
+                        width = 80;
+                        gap = 80 - (this.current_column_width + diffX);
+                    }else{
+                        width = (this.current_column_width + diffX);
+                    }
+                    let tmp_current = _.clone(this.columns[this.current_column_index]);
+                    tmp_current.width = (width / table_width).toFixed(3) * 100;
+                    Vue.set(this.columns, this.current_column_index, tmp_current);                    
+                    if (this.next_column){
+                        let tmp_next = _.clone(this.columns[this.current_column_index+1]);
+                        let width =   ((this.next_column_width - diffX - gap) / table_width).toFixed(3) * 100;
+                        tmp_next.width = width;
+                        Vue.set(this.columns, this.current_column_index+1, tmp_next);                        
+                    }                    
                 }
-                let tmp_current = _.clone(this.columns[this.current_column_index]);
-                tmp_current.style = {width:this.current_column_width + diffX};
-                Vue.set(this.columns, this.current_column_index, tmp_current);
             }
         },
         mouse_up(){
@@ -336,14 +368,6 @@ export default {
                 return row.checked;
             });
             return arr;
-        },
-        columnStyleWidth(index){
-            let tmp = _.clone(this.columns[index]);
-            if(tmp.style && tmp.style.width){
-                return tmp.style.width+'px';
-            }else{
-                return "";
-            }
         },
         hide_pager_dropdown() {
             this.pager_dropdown_show = false;
