@@ -22,46 +22,46 @@
             </thead>
         </table>
         <perfect-scrollbar :style="{height:needScroll?this.param.height+'px':''}">
-	        <table @mouseup="mouse_up" @mousemove="mouse_move" @click="stop">    
-	            <tbody>
-	                <tr v-if="rows.length == 0">
-	                    <td :colspan="columns.length" class="no-data">{{$t("no_data")}}</td>
-	                </tr>
-	                <template v-else v-for="(row,index) in rows">
-	                    <tr :class="{active:row.checked,stripe:stripeTR(index)}">
-	                        <template v-for="(column, column_index) in columns">
-	                            <td :width="columnWidth(column)" v-if="column.isCheckbox" class="vue-checkbox" >
-	                                <div @click="clickCheckItem(row,index)" class="checkbox" :class="{'checked':row.checked}">
-	                                    <span class="checkbox_span" :class="checkAllClass"></span>
-	                                </div>
-	                            </td>
-	                            <td :width="columnWidth(column)" v-else-if="column.isDetailRow" class="vue-detail-row-col" @click="clickDetailRow(row,index)" :class="{'expand':row.expand}">
-	                                 <font-awesome-icon class="icon" :icon="['fas','angle-right']" />
-	                            </td>
-	                            <td :width="columnWidth(column)" v-else-if="column.callback" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" v-html="column.callback(row[column.index],row)" :style="{'text-align':column.align || 'left'}">
-	                            </td>
-	                            <td :width="columnWidth(column)" v-else-if="column.component_name" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'text-align':column.align || 'left'}">
-	                                <component :is="column.component_name" :row-data="row" :param="typeof(column.param) !='undefined'?column.param:{}" :key="row.id" v-on:update-component="updateComponent"></component>
-	                            </td>
-	                            <td :width="columnWidth(column)" v-else-if="column.delete" align="center" class="delete">
-	                                <span class="tmicon tmicon-delete" @click.stop="removeRow(row,index)">&nbsp;</span>
-	                            </td>
-	                            <td :width="columnWidth(column)" v-else :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'text-align':column.align || 'left'}" :title="row[column.index]" :align="column.align || 'left'">
-	                                {{row[column.index]}}
-	                            </td>
-	                        </template>
-	                    </tr>
-	                    <tr class="vue-table-detail" v-if="needDetailRow" v-show="row.expand">
-	                        <td v-if="needCheckbox" style="border:0px"></td>
-	                        <td style="border:0px"></td>
-	                        <td :colspan="columns.length - (needCheckbox?1:0) - (needDetailRow?1:0)" class="detail_td">
-	                            <component :is="param.detailRowComponentName" :row-data="row" :key="row.id" :ref="'detail_'+row.id"></component>
-	                        </td>
-	                    </tr>
-	                </template>
-	            </tbody>
-	        </table>
-    	</perfect-scrollbar>
+            <table @mouseup="mouse_up" @mousemove="mouse_move" @click="stop">    
+                <tbody>
+                    <tr v-if="rows.length == 0">
+                        <td :colspan="columns.length" class="no-data">{{$t("no_data")}}</td>
+                    </tr>
+                    <template v-else v-for="(row,index) in rows">
+                        <tr :class="{active:row.checked,stripe:stripeTR(index)}">
+                            <template v-for="(column, column_index) in columns">
+                                <td :width="columnWidth(column)" v-if="column.isCheckbox" class="vue-checkbox" >
+                                    <div @click="clickCheckItem(row,index)" class="checkbox" :class="{'checked':row.checked}">
+                                        <span class="checkbox_span" :class="checkAllClass"></span>
+                                    </div>
+                                </td>
+                                <td :width="columnWidth(column)" v-else-if="column.isDetailRow" class="vue-detail-row-col" @click="clickDetailRow(row,index)" :class="{'expand':row.expand}">
+                                     <font-awesome-icon class="icon" :icon="['fas','angle-right']" />
+                                </td>
+                                <td :width="columnWidth(column)" v-else-if="column.callback" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" v-html="column.callback(row[column.index],row)" :style="{'text-align':column.align || 'left'}">
+                                </td>
+                                <td :width="columnWidth(column)" v-else-if="column.component_name" :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'text-align':column.align || 'left'}">
+                                    <component :is="column.component_name" :row-data="row" :param="typeof(column.param) !='undefined'?column.param:{}" :key="row.id" v-on:update-component="updateComponent"></component>
+                                </td>
+                                <td :width="columnWidth(column)" v-else-if="column.delete" align="center" class="delete">
+                                    <span class="tmicon tmicon-delete" @click.stop="removeRow(row,index)">&nbsp;</span>
+                                </td>
+                                <td :width="columnWidth(column)" v-else :class="{'sortable':column.sortable,'resize_hover':column_hover(column),'column_click':column_click(column)}" :style="{'text-align':column.align || 'left'}" :title="row[column.index]" :align="column.align || 'left'">
+                                    {{row[column.index]}}
+                                </td>
+                            </template>
+                        </tr>
+                        <tr class="vue-table-detail" v-if="needDetailRow" v-show="row.expand">
+                            <td v-if="needCheckbox" style="border:0px"></td>
+                            <td style="border:0px"></td>
+                            <td :colspan="columns.length - (needCheckbox?1:0) - (needDetailRow?1:0)" class="detail_td">
+                                <component :is="param.detailRowComponentName" :row-data="row" :key="row.id" :ref="'detail_'+row.id"></component>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </perfect-scrollbar>
         <div class="table-pagination" v-show="showPagination">
             <div class="table-pagination-block">
                 <div class="pagination-records">{{records}}</div>
@@ -123,9 +123,9 @@ import './vue-my-table.less';
 library.add(faSortAlphaUp, faSortAlphaDownAlt, faAngleLeft, faAngleRight, faAngleDown, faCheck);
 export default {
     name: "vueMyTable",
-	components: {
-		PerfectScrollbar
-	},   
+    components: {
+        PerfectScrollbar
+    },   
     i18n: new VueI18n({
         locale: 'en_US',
         messages: {
@@ -237,7 +237,7 @@ export default {
         },
         needCheckbox() {
             let res = _.find(this.columns, (column) => { 
-            	return column.isCheckbox == true 
+                return column.isCheckbox == true 
             });
             return typeof(res) != 'undefined';
         },
@@ -251,17 +251,17 @@ export default {
             return this.totalPage <= 1;
         },
         needScroll() {
-        	return typeof(this.param.height) && parseInt(this.param.height) > 0 && this.rows.length > 0;
+            return typeof(this.param.height) && parseInt(this.param.height) > 0 && this.rows.length > 0;
         },
         scrollWidth(){
-        	return '17px'
+            return '17px'
         },
         bodyStyle() {
-        	if(this.needScroll){
-        		return {
-        			'height':this.param.height+'px',
-        		}
-        	}
+            if(this.needScroll){
+                return {
+                    'height':this.param.height+'px',
+                }
+            }
         }
     },
     methods: {
@@ -315,16 +315,15 @@ export default {
                         let width = 0;
                         if((this.next_column_width - (diffX)) < 80){
                             gap = 80 - (this.next_column_width - (diffX));
-                            width =   (80 / table_width).toFixed(3) * 100;
+                            width =   (80 / table_width).toFixed(4) * 100;
                         }else{
                             width =   ((this.next_column_width - diffX) / table_width).toFixed(3) * 100;                         
                         }
                         tmp_next.width = width;
-                        Vue.set(this.columns, this.current_column_index+1, tmp_next);
-                        console.log(this.columns);                        
+                        Vue.set(this.columns, this.current_column_index+1, tmp_next);                        
                     }
                     let tmp_current = _.clone(this.columns[this.current_column_index]);
-                    tmp_current.width = ((this.current_column_width + diffX - gap) / table_width).toFixed(3) * 100;
+                    tmp_current.width = ((this.current_column_width + diffX - gap) / table_width).toFixed(4) * 100;
                     Vue.set(this.columns, this.current_column_index, tmp_current);
 
 
@@ -338,11 +337,11 @@ export default {
                         width = (this.current_column_width + diffX);
                     }
                     let tmp_current = _.clone(this.columns[this.current_column_index]);
-                    tmp_current.width = (width / table_width).toFixed(3) * 100;
+                    tmp_current.width = (width / table_width).toFixed(4) * 100;
                     Vue.set(this.columns, this.current_column_index, tmp_current);                    
                     if (this.next_column){
                         let tmp_next = _.clone(this.columns[this.current_column_index+1]);
-                        let width =   ((this.next_column_width - diffX - gap) / table_width).toFixed(3) * 100;
+                        let width =   ((this.next_column_width - diffX - gap) / table_width).toFixed(4) * 100;
                         tmp_next.width = width;
                         Vue.set(this.columns, this.current_column_index+1, tmp_next);                        
                     }                    
@@ -399,7 +398,7 @@ export default {
             this.getData();
         },
         columnWidth(column){
-        	return typeof(column.width)!=='undefined'?column.width+'%':'';
+            return typeof(column.width)!=='undefined'?column.width+'%':'';
         },      
         clickCheckAll() {
             var _this = this;
@@ -431,7 +430,7 @@ export default {
             row.expand = !row.expand;
             Vue.set(this.rows, index, row);
             if(_.isFunction(this.$refs["detail_" + row.id][0].callback)){
-            	this.$refs["detail_" + row.id][0].callback();
+                this.$refs["detail_" + row.id][0].callback();
             }
         },
         resort(sortable, sort_column) {
@@ -489,7 +488,7 @@ export default {
                         tmp["checked"] = false;
                     }
                     if (needDetailRow){
-                    	tmp["expand"] = false;
+                        tmp["expand"] = false;
                     }
                     _.forEach(value, function(v, k) {
                         tmp[k] = v;
