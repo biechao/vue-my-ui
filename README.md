@@ -1,4 +1,4 @@
-# vue-my-ui
+# vue-my-view
 > This is a javascript library based on VUE.
 
 ## Table of contents
@@ -15,8 +15,8 @@ The library contain some UI components, and will add more components are on the 
 
 ## Set up
 ```
-git clone https://github.com/biechao/vue-my-ui.git
-cd vue-my-ui
+git clone https://github.com/biechao/vue-my-view.git
+cd vue-my-view
 npm install
 npm run storybook
 ```
@@ -42,7 +42,7 @@ To-do list:
 Init version
 
 ## Contact
-Feel free to contact me here [github](https://github.com/biechao/vue-my-ui)
+Feel free to contact me here [github](https://github.com/biechao/vue-my-view)
 
 ## Licence
 MIT
