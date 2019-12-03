@@ -1,18 +1,19 @@
 {
-  "name": "vue-my-ui",
-  "version": "0.1.0",
+  "name": "vue-my-view",
+  "version": "1.0.1",
   "private": false,
-  "description": "this is java script framework based on vue.js",
+  "description": "this is javascript framework based on VUE",
+  "keyword": "vue framework table transfer datepicker",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "lib": "vue-cli-service build --target lib --name vueMyUi --dest lib packages/index.js",
+    "lib": "vue-cli-service build --target lib --name vueMyView --dest lib packages/index.js",
     "storybook": "start-storybook",
     "storybook:build": "vue-cli-service storybook:build -c config/storybook",
     "storybook:serve": "vue-cli-service storybook:serve -p 6006 -c config/storybook"
   },
-  "main": "lib/vueMyUi.umd.js",
+  "main": "lib/vueMyView.umd.js",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.25",
     "@fortawesome/free-regular-svg-icons": "^5.11.2",
@@ -27,6 +28,7 @@
     "less-loader": "^5.0.0",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
+    "qrious": "^4.0.2",
     "vue": "^2.6.10",
     "vue-axios": "^2.1.5",
     "vue-clickaway": "^2.2.2",
@@ -81,6 +83,6 @@
   "keywords": "vue table",
   "repository": {
     "type": "git",
-    "url": "https://github.com/biechao/vue-my-ui"
+    "url": "https://github.com/biechao/vue-my-view"
   }
 }

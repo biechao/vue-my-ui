@@ -21,6 +21,7 @@ import vueMyTabGroup from './vue-my-tab-group/index.js'
 import vueMyTab from './vue-my-tab/index.js'
 import vueMyTagInput from './vue-my-tag-input/index.js'
 import vueMySelect from './vue-my-select/index.js'
+import vueMyQrcode from './vue-my-qrcode/index.js'
 
 const components = [
   vueMyRadio,
@@ -35,7 +36,8 @@ const components = [
   vueMyTabGroup,
   vueMyTab,
   vueMyTagInput,
-  vueMySelect
+  vueMySelect,
+  vueMyQrcode
 ]
 const install = function(vue) {
   /* istanbul ignore if */
@@ -64,5 +66,6 @@ export {
   vueMyTabGroup,
   vueMyTab,
   vueMyTagInput,
-  vueMySelect 
+  vueMySelect,
+  vueMyQrcode
 }

@@ -20,7 +20,8 @@ import {
   vueMyTabGroup,
   vueMyTab,
   vueMyTagInput,
-  vueMySelect
+  vueMySelect,
+  vueMyQrcode
 } from './../../packages/index'
 
 storiesOf('Radio', module)
@@ -1159,5 +1160,59 @@ storiesOf('Select', module)
         },1000)
       }      
     }
-  }),{info:true})  
+  }),{info:true}) 
+
+storiesOf('QRcode image', module)
+  .addDecorator(withInfo)
+  .add('Basic QRcode image', () => ({
+    components: { vueMyQrcode },
+    template: `<div>
+                  <vueMyQrcode value="this is a test"></vueMyQrcode>
+                </div>`,
+    data(){return{
+      }
+    },
+    methods: { 
+      change(){alert("QRcode image regenerated");},
+    }
+  }),{info:true}) 
+  .add('QRcode image options', () => ({
+    components: { vueMyQrcode },
+    template: `<div>
+                  Content: <textarea v-model="value"></textarea><br/>
+                  size: <input type="range" min="100" max="600" step="20" v-model="size"><br/><br/>
+                  Level: <select v-model="level"><option value="L">L</option><option value="M">M</option><option value="Q">Q</option><option value="H">H</option></select><br/><br/>
+                  Background:<input type="color" v-model="background"><br/><br/>
+                  Foreground:<input type="color" v-model="foreground"><br/><br/>
+                  <vueMyQrcode :value="value" :size="size" :level="level" :background="background" :foreground="foreground"></vueMyQrcode>
+                </div>`,
+    data(){
+      return{
+        value:"this is a test",
+        size:200,
+        level:"M",
+        background:"#FFFFFF",
+        foreground:"#000000"
+      }
+    },
+    methods: { 
+    }
+  }),{info:true})
+  .add('Change with callback function', () => ({
+    components: { vueMyQrcode },
+    template: `<div>
+                  size: <input type="range" min="100" max="600" step="20" v-model="size" v-on:change="change"><br/><br/>
+                  <vueMyQrcode :value="value" :size="size"></vueMyQrcode>
+                </div>`,
+    data(){
+      return{
+        value:"this is a test",
+        size:200,
+
+      }
+    },
+    methods: { 
+      change(){alert("QRcode image regenerated");},
+    }
+  }),{info:true})     
   

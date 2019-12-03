@@ -34,6 +34,7 @@ Storybook is in [github](https://biechao.github.io/2019/11/20/storybook-static/)
 * Tabs
 * Tag input
 * Select
+* QRcode image
 
 To-do list:
 * too much
